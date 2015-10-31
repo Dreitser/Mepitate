@@ -6,7 +6,7 @@ using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 
 //Sound
-using Windows.Media.Play;
+using System.Media;
 
 namespace Mepitate
 {
@@ -32,11 +32,7 @@ namespace Mepitate
 
         #region GPIO code (PIR)
 
-        /// <summary>
-        /// Initialize the GPIO ports on the Raspberry Pi
-        /// 
-        /// GPIO PIN 16 = PIR Signal
-        /// </summary>
+
         private void InitializeGPIO()
         {
             try
@@ -97,9 +93,11 @@ namespace Mepitate
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
-                    PIRStatus.Text = "New PIR pin value: " + args.Edge.ToString();
-                    //To Do
-                    //Play.Sound;
+                  PIRStatus.Text = "New PIR pin value: " + args.Edge.ToString();
+                 //SoundPlayer mantra = new SoundPlayer(@"C:\WINDOWS\Media\mantra.wav");
+                 SoundPlayer mantra = new SoundPlayer(Resource1.mantra);
+
+                  mantra.Play();
                     
                    });
             }
